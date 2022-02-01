@@ -1,0 +1,237 @@
+\documentclass[11pt,letterpaper]{article}
+
+\usepackage{amsmath,amssymb,amsthm,epsfig}
+\usepackage{graphpap}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{epsfig}
+\usepackage{amsmath}
+\usepackage{latexsym}
+\usepackage{amsfonts}
+\usepackage{bm}
+
+\DeclareMathOperator{\argmax}{argmax}
+\DeclareMathOperator{\argmin}{argmin}
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}{Corollary}
+
+ \setlength\topmargin{-0.5in}
+ \setlength\headsep{0in}
+ \setlength\textwidth{6.5in}
+ \setlength\textheight{9in}
+ \setlength\oddsidemargin{0in}
+  \setlength\evensidemargin{0in}
+\DeclareMathOperator{\s.t.}{s.t.}
+\usepackage[pdftex]{hyperref}
+
+\title{IE510 Applied Nonlinear Programming Homework 1}
+\date{}
+\begin{document}
+\maketitle
+
+
+\noindent Instructor name: Ruoyu Sun \hspace{1.8 in} Student name: \underline{\hspace{1.5in}} \\
+
+%Date assigned: Saturday 01/25/2020
+%
+%Date due: Week 3 Wednesday 02/05/2020,  at 11:59pm
+
+\vspace*{0.3cm}
+
+Warning: The work your are submitting for this homework assignment must be your own, and suspiciously similar homework submitted by multiple individuals may be reported to the University for investigation. 
+% Academic misconduct in any form may lead to an F grade for the homework or even 
+% suspension from the University. 
+
+\vspace{0.1 in}
+
+%\noindent \fbox{\parbox{\textwidth}{
+%		\begin{itemize}
+%			\item Date assigned: Saturday 01/20/2018
+%			\item Date due: Week 3 Tuesday 01/30/2017,  at 3pm
+%			 \item This cover sheet must be signed and submitted along with the homework answers on additional sheets.
+%			\item By submitting this homework with my name affixed above,
+%			\begin{itemize}
+%				\item I understand that late homework will not be accepted,
+%				\item I acknowledge that I am aware of the University's policy concerning academic misconduct (appended below),
+%				\item I attest that the work I am submitting for this homework assignment is solely my own, and
+%				\item I understand that suspiciously similar homework submitted by multiple individuals will be reported to the university for investigation.
+%			\end{itemize}
+%			
+%			\item Academic Misconduct in any form is in violation of the University's Disciplinary Regulations and will not be tolerated.  This includes, but is not limited to: copying or sharing answers on tests or assignments, plagiarism, having someone else do your academic work or working with someone on homework when not permitted to do so by the instructor.  Depending on the act, a student could receive an F grade on the test/assignment, F grade for the course, and could be suspended or expelled from the University. 
+%		\end{itemize}
+%	}}
+%
+%
+%\clearpage
+
+\section{Reading} 
+\begin{itemize}
+\item Reading: Textbook Section 1.1
+\item Appendix A. 
+\end{itemize}
+
+
+\section{Problems}
+
+Note: You need to justify your answer for all questions (you cannot just answer yes or no for the question
+without a proof or analysis).
+
+\begin{enumerate}
+\item (15 + 5 points) Consider the sequence defined as 
+$$
+ \mathbf{x}^{k+1} = A \mathbf{x}^k, k =1, 2, \dots,
+$$	
+where $A \in \mathbb{R}^{2 \times 2}$, $ \mathbf{x}^k \in \mathbb{R}^2 $.
+In questions a) to c), The contraction/non-expansive mappings are defined for the Euclidean norm
+% , i.e., $f$ is a contraction mapping if $\| f(x) - f(y )\| \leq \gamma \| x - y\|$ for some constant $\gamma < 1$ 
+\footnote{Note: if the inequality $ \| f(x) - f(y) \|_{ * } \leq \gamma \| x - y\|_* $ where the constant $\gamma < 1 $ holds for some norm $\| \cdot\|_*$ such as $\ell_1$ norm or $\ell_2$ norm, $f$ is  called a contraction mapping with respect to the norm $\| \cdot \|_*$.}. 
+
+a) Let the matrix $A = \begin{bmatrix}
+  a  & 0  \\ 
+0    & b
+\end{bmatrix}$, where $a, b \in \mathbb{R} . $
+Find the sufficient and necessary condition C1 on $a, b$ so that $f(x) = A x$ is a contraction mapping. 
+Find the sufficient and  necessary condition C2 on $a, b$
+so that $f(x) = Ax $ is a nonexpansive mapping. 
+
+b) For the matrix defined in a), find the sufficient and necessary condition under which the sequence $\{ \mathbf{x}^k \} $  converges for any initial point $\mathbf{x}^k$. 
+Is it the same as C1 or C2 or none of them? 
+% According to the fixed point theorem, if $f$ is a contraction mapping, then
+% the sequence $\{ \mathbf{x}^k \}$ always converges.
+% If $a, b$ do not satisfy the condition C1 you just found, is it possible for the sequence  $\{ \mathbf{x}^k \} $ to be convergent for an arbitrary initial point $\mathbf{x}^0$?  What if $a , b$ do not satisfy C2? 
+
+c) Now consider another matrix $A = \begin{bmatrix}
+0.5 & 1  \\ 
+ 0    & 0.5
+\end{bmatrix}$. 
+Is $f(\mathbf{x} ) = A \mathbf{x}$  a non-expansive mapping (under 2-norm)? Does the sequence $\{ \mathbf{x}^k \}$ converge?
+
+
+d) (bonus 5 points) For the matrix in c), can you find a norm of $\mathbb{R}^2$ so that $f(\mathbf{x} ) = A \mathbf{x}$ is a contraction mapping with respect to this norm?
+% i.e., $ \| A \mathbf{x} - A \mathbf{y} \|_* \leq \gamma \| \mathbf{x} - \mathbf{y}  \| $ for some constant $\gamma < 1$ 
+
+Hint 1: For any positive-definite matrix $B$, $\| x\|_B \triangleq x^T B x $
+is a norm.   \\
+Hint 2: You may use computer to help the search.
+
+
+\item (15 points)
+Consider the problem $ \min_{ x,y \in \mathbb{R} } (x+1)^2+x^2 y^2.$  
+
+(1) Is the objective function convex, concave or neither? Justify your answer. 
+
+(2) Identify all stationary points.
+
+(3) Does the problem have a global minimum? If yes, find it; if no, explain why.
+
+(4) Does the function $(x+1)^2+x^2 y^2$  have a global maximum? If yes, find it; if no, explain why.
+
+% Hint: Consider using the definitions of global minimum and global maximum in (5) and (6).
+
+
+\vspace{0.8cm}	
+	
+ \item  (20 points) Exercise 1.1.1 in the textbook. Pay attention to the requirement ``each value''. 
+	\begin{figure}[h]  \vspace{-0.4cm}
+	\includegraphics[width = 6.6 in, height = 1.8 in]{img/problem1}
+\end{figure}
+
+\item (25 points) Exercise 1.1.2 in the textbook. Note that you need to justify what you find. You cannot just present
+the points and claim they are local minima or global minma without justification. 
+
+\begin{figure}[h]  \vspace{-0.4cm}
+	\includegraphics[width = 6.6 in, height = 3.3 in]{img/problem2}
+\end{figure}
+
+
+
+\newpage 
+
+\item (15 points) Exercise 1.1.3 in the textbook. 
+
+\begin{figure}[h]  \vspace{-0.4cm}
+	\includegraphics[width = 6.6 in, height = 3.3 in]{img/problem3}
+\end{figure}
+
+
+
+% \item (15 points) Exercise 1.1.6 in the textbook
+
+	\item (10 points + 5 bonus points) 
+	
+a)  (10 points) Let $\mathbf{A}\ne 0$ be an $n \times n $ symmetric positive-semidefinite matrix.
+	%, i.e., $\mathbf{A} = \mathbf{u} \mathbf{u}^T $ with $\mathbf{u} \in\mathbb{R}^n$. 
+%a) 	Consider the following optimization problem
+%	\begin{align}\label{mf rank 1 problem}
+%	\min_{\mathbf{x} }&\quad \frac{1}{2}\| \mathbf{A} -\mathbf{x}\mathbf{x}^T \|^2_F\nonumber\\
+%	\mbox{s.t.}&\quad \mathbf{x}  \in\mathbb{R}^n. 
+%	\end{align}
+%	Please answer the following questions.	
+Visualize the function $f( \mathbf{x} ) = 
+\| \mathbf{A} -\mathbf{x}\mathbf{x}^T \|_F^2 $ where 
+$\mathbf{x}  \in\mathbb{R}^n, $
+ in  the following settings, using any software: \\
+  (i)  $ n = 1, \mathbf{A} = 1 $; \\
+ % (ii) $ n = 2, \mathbf{A} = I = \begin{bmatrix}
+ % 1 & 0 \\ 0 & 1
+ % \end{bmatrix} $;  \\
+   (ii) $ n = 2, \mathbf{A} =  \begin{bmatrix}
+   1 & 0.6 \\ 0.6 & 1
+   \end{bmatrix} $ ;  \\ 
+  (iii)  $ n = 200 $, $ \mathbf{A} =  B B^{\top }  $  where $B$ is  a 200 $\times $ 200 random Gaussian matrix. 
+% Show that it is  {\bf not} a convex optimization problem.
+
+Hint: For the command of visualization at matlab, you can search "Creating 3-D plots, Mathworks" at google (if your 
+are using matlab). For (i), using command ``plot'' is enough. 
+For (ii) and (iii), you need to draw both 3D plots and the contour.
+You can use the command ``surf'' and  "contour" if you are using matlab. 
+For (iii), projection to 2-dim space is needed; you can try different ways of projection so that the plot makes sense
+to you. 
+Needless to say, you can use  similar tools in other software. 
+% Using the command ``contour'' or ``surfl'' is a plus but not necessary.  
+Print the figures you draw. 
+
+
+(b) (5 bonus points) Consider a nonlinear neural-network problem 
+$$
+\min_{ v \in \mathbb{R}^{m \times 1},  W \in  \mathbb{R}^{m \times d}   }  
+ \sum_{i = 1}^n  ( y_i - v^T \sigma ( W  x_i ) )^2 ,   %  + ( y_2 - w_2 \sigma ( w_1 x_2 ) )^2  ,
+$$
+where $(x_k, y_k), k=1,2, \dots, n $ are the training data, $W, v $ are the optimization variables and  $\sigma(\cdot) $ is the activation function given by (exponential linear units):
+% chosen from one of the two choices:
+%  (a) sigmoid, $\sigma(y) = \frac{1}{ 1 + e^{-y}}$;  \\
+% (b) exponential linear units, 
+$\sigma( z) = \begin{cases}
+e^z - 1,  \quad z < 0,  \\
+z      ,  \quad z \geq 0. 
+\end{cases}$
+
+Generate the data $(x_k, y_k), k=1,2, \dots, n $ from a random distribution (e.g., the standard Gaussian distribution $N(0,1)$); note that $x_k$ is $d$-dim vector and $y_k$ is a scalar. 
+Visualize the function by projection onto a 2-dimensional space. 
+
+Note: you can try different ways of projection, and check which visualization makes the most sense to you. 
+You can try different choices of $ n , d,  m$.
+For instance, try $ (n ,d , m)  =  ( 500, 30,  5   )    $ and $ (n ,d , m)  =  ( 500, 30,  200   )  $, and other choices
+of $m$ between $5$ and $200$. 
+The more interesting findings you give, the more points you get. 
+ 
+% Use random initial points (such as  $N(0,1)$, $10*N(0,1)$, $\text{Unif}[-1,1]$ and 
+% $10 * \text{Unif}[-1,1];$ you can decide yourself) and different constant stepsizes for GD. Discuss what kind of stepsize and/or initial points can guarantee convergence to the global optima. 
+
+
+% \mathbf{A}  = BB^{\top}
+% e) (5 bonus points) Show that for any $n \times n$ matrix $\mathbf{A}$ (not necessarily symmetric) 
+% and any positive integer $1 \leq r \leq n$, every local optimum of the problem
+% $	\min_{\mathbf{X, Y} \in \mathbb{R}^{n\times r} } \frac{1}{2}\| \mathbf{A} -\mathbf{X}\mathbf{Y}^T \|^2_F $
+% is a global optimum.
+
+\end{enumerate}
+
+
+\noindent {\bf Note}: All problems are referred using version 2 of the textbook.
+You do not need a textbook though, since all problems are included in this pdf. 
+
+%  For those who use version 3 of the book, do not use the textbook, but use the problems 
+%  scanned version of the HW assignment posted on the Box file. 
+
+\end{document}
